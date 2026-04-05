@@ -80,3 +80,77 @@ function addPlayer(name){
 </body>
 </html
 addPlayer("mehmetemrebicer112-rgb");
+!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Karanlık Orman – Direkt Oynama</title>
+<style>
+body{margin:0;overflow:hidden;background:#0b3d0b;font-family:sans-serif;color:white;text-align:center;}
+#game{position:relative;width:100vw;height:100vh;}
+#player{position:absolute;width:40px;height:60px;left:200px;top:200px;}
+.head{width:20px;height:20px;background:#ffd39b;border-radius:50%;margin:auto;}
+.body{width:30px;height:40px;background:#2c5aa0;margin:auto;border-radius:5px;}
+#name{position:absolute;top:-20px;width:120px;left:-40px;font-size:12px;}
+#wolf{position:absolute;width:40px;height:40px;background:gray;left:500px;top:300px;border-radius:10px;}
+#snake{position:absolute;width:30px;height:30px;background:green;left:700px;top:100px;border-radius:5px;}
+#joystick{position:fixed;bottom:40px;left:40px;width:120px;height:120px;background:rgba(255,255,255,0.2);border-radius:50%;}
+#stick{width:60px;height:60px;background:white;border-radius:50%;position:absolute;left:30px;top:30px;}
+#attack{position:fixed;bottom:50px;right:40px;width:60px;height:60px;background:red;border-radius:50%;font-size:16px;color:white;text-align:center;line-height:60px;}
+</style>
+</head>
+<body>
+<h2 style="text-align:center;">Karanlık Orman – Direkt Oynama</h2>
+<div id="game">
+<div id="player">
+<div id="name">mehmetemrebicer112-rgb</div>
+<div class="head"></div>
+<div class="body"></div>
+</div>
+<div id="wolf"></div>
+<div id="snake"></div>
+</div>
+<div id="joystick">
+<div id="stick"></div>
+</div>
+<div id="attack">⚔️</div>
+<script>
+let player=document.getElementById("player");
+let wolf=document.getElementById("wolf");
+let snake=document.getElementById("snake");
+let stick=document.getElementById("stick");
+let attack=document.getElementById("attack");
+let px=200,py=200;
+let dragging=false;
+
+stick.addEventListener("touchstart",()=>{ dragging=true; });
+document.addEventListener("touchend",()=>{ dragging=false; stick.style.left="30px"; stick.style.top="30px"; });
+document.addEventListener("touchmove",(e)=>{
+if(!dragging) return;
+let t=e.touches[0];
+let dx=t.clientX-100;
+let dy=t.clientY-(window.innerHeight-100);
+px+=dx*0.03; py+=dy*0.03;
+player.style.left=px+"px"; player.style.top=py+"px";
+checkWolf(); checkSnake();
+});
+
+let wolfX=500,wolfY=300;
+setInterval(()=>{
+let dx=px-wolfX; let dy=py-wolfY; let dist=Math.hypot(dx,dy);
+if(dist>5){ wolfX+=dx/dist*1.5; wolfY+=dy/dist*1.5; wolf.style.left=wolfX+"px"; wolf.style.top=wolfY+"px"; }
+},30);
+
+function checkWolf(){
+let dist=Math.hypot(wolfX-px,wolfY-py);
+if(dist<60){ alert("🐺 Kurt sana yaklaşıyor!"); }
+}
+
+function checkSnake(){
+let sx=parseInt(snake.style.left);
+let sy=parseInt(snake.style.top);
+let dist=Math.hypot(sx-px,sy-py);
+if(dist<50){ alert("🐍 Yılan! Kaç!"); }
+}
+
+attack.addEventListener("click",()=>{ alert("💥 Saldırı yapıldı!"); });
