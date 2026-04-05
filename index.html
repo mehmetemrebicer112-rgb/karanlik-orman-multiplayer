@@ -1,21 +1,75 @@
+
+</html>p
 <!DOCTYPE html>
 <html>
 <head>
 <title>Karanlik Orman</title>
+<style>
+body { background:black; color:white; font-family:sans-serif; text-align:center; }
+button { padding:10px 20px; font-size:18px; margin-top:20px; }
+#message { margin-top:20px; font-size:16px; }
+</style>
 </head>
 
-<body style="background:black;color:white;text-align:center;font-family:sans-serif;">
+<body>
 
-<h1>Karanlik Orman Oyunu</h1>
+<h1>Karanlık Orman</h1>
 <p>Dikkat! Bu bir korku oyunudur.</p>
 
-<button onclick="start()">Oyuna Basla</button>
+<button onclick="startGame()">Oyuna Başla</button>
+
+<p id="message"></p>
 
 <script>
-function start(){
-alert("Ormanda uyandın! Arkadaşlarını bul ve çıkış kapısını ara.");
+// Oyuncu ve oyun durumu
+let gameStarted = false;
+let playerAlive = true;
+
+// Oyuna başla
+function startGame(){
+  if(gameStarted) return;
+  gameStarted = true;
+  document.getElementById("message").innerText = "Ormanda uyandın! Arkadaşlarını bul ve çıkış kapısını ara...";
+
+  // 5 saniye sonra yılan jump scare
+  setTimeout(()=> { snakeScare(); }, 5000);
+
+  // 10 saniye sonra kurt jump scare
+  setTimeout(()=> { wolfScare(); }, 10000);
+
+  // Örümcek rastgele 15 saniye içinde
+  setTimeout(()=> { spiderScare(); }, 15000);
 }
+
+// Jump scare fonksiyonları
+function snakeScare(){
+  if(!playerAlive) return;
+  alert("🐍 Yılan! Hemen kaç! Eğer 20 saniye içinde arkadaşın yardım ederse canlanırsın.");
+  playerAlive = false;
+  setTimeout(()=> {
+    if(!playerAlive) {
+      alert("Maalesef yılan seni ısırdı. Oyundan düştün.");
+    }
+  }, 20000);
+}
+
+function wolfScare(){
+  if(!playerAlive) return;
+  alert("🐺 Kurt geldi! Dikkat et!");
+}
+
+function spiderScare(){
+  if(!playerAlive) return;
+  alert("🕷️ Örümcek belirdi!");
+}
+
+// Basit hareket
+document.addEventListener("keydown", function(event) {
+  if(event.key === "ArrowUp") alert("Yukarı zıpladın!");
+  if(event.key === "ArrowLeft") alert("Sola gittin!");
+  if(event.key === "ArrowRight") alert("Sağa gittin!");
+});
 </script>
 
 </body>
-</html>p
+</html
