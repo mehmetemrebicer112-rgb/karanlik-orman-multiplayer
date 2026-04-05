@@ -1,9 +1,7 @@
-
-</html>p
 <!DOCTYPE html>
 <html>
 <head>
-<title>Karanlik Orman</title>
+<title>Karanlik Orman Multiplayer</title>
 <style>
 body { background:black; color:white; font-family:sans-serif; text-align:center; }
 button { padding:10px 20px; font-size:18px; margin-top:20px; }
@@ -13,7 +11,7 @@ button { padding:10px 20px; font-size:18px; margin-top:20px; }
 
 <body>
 
-<h1>Karanlık Orman</h1>
+<h1>Karanlık Orman Multiplayer</h1>
 <p>Dikkat! Bu bir korku oyunudur.</p>
 
 <button onclick="startGame()">Oyuna Başla</button>
@@ -24,6 +22,7 @@ button { padding:10px 20px; font-size:18px; margin-top:20px; }
 // Oyuncu ve oyun durumu
 let gameStarted = false;
 let playerAlive = true;
+let players = []; // Multiplayer oyuncular
 
 // Oyuna başla
 function startGame(){
@@ -37,7 +36,7 @@ function startGame(){
   // 10 saniye sonra kurt jump scare
   setTimeout(()=> { wolfScare(); }, 10000);
 
-  // Örümcek rastgele 15 saniye içinde
+  // 15 saniye sonra örümcek jump scare
   setTimeout(()=> { spiderScare(); }, 15000);
 }
 
@@ -69,6 +68,13 @@ document.addEventListener("keydown", function(event) {
   if(event.key === "ArrowLeft") alert("Sola gittin!");
   if(event.key === "ArrowRight") alert("Sağa gittin!");
 });
+
+// Multiplayer placeholder (gerçek zamanlı değil)
+function addPlayer(name){
+  if(players.length >= 10) return alert("Maksimum 10 oyuncu!");
+  players.push(name);
+  alert(name + " oyuna katıldı! Şu an toplam: " + players.length);
+}
 </script>
 
 </body>
